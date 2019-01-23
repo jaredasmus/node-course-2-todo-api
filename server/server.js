@@ -5,35 +5,47 @@ mongoose.connect('mongodb://localhost:27017/TodoApp', {useNewUrlParser: true});
 
 const Todo = mongoose.model('Todo', {
     text: {
-        type: String
+        type: String,
+        required: true,
+        minlength: 1,
+        trim: true
     },
     completed: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     completedAt: {
-        type: Number
+        type: Number,
+        default: null
     }
 });
 
-const newTodo = new Todo({
-    text: 'Cook Dinner',
-    completed: false
+// const newTodo = new Todo({
+//     text: 'Cook Dinner',
+//     completed: false
+// });
+
+// newTodo.save().then((doc) => {
+//     console.log('Saved todo', doc);
+// }, (e) => {
+//     console.log('unable to save todo.');
+// });
+
+const User = mongoose.model('User', {
+    email: {
+        type: String,
+        required: true,
+        minlength: 1,
+        trim: true
+    }
 });
 
-newTodo.save().then((doc) => {
-    console.log('Saved todo', doc);
+const newUser = new User({
+    email: 'email@email.com'
+});
+
+newUser.save().then((doc) => {
+    console.log('Saved user', doc);
 }, (e) => {
-    console.log('unable to save todo.');
-});
-
-const newTodo2 = new Todo({
-    text: 'Eat Dinner',
-    completed: false,
-    completedAt: new Date().getTime()
-});
-
-newTodo2.save().then((doc) => {
-    console.log('Saved todo2', doc);
-}, (e) => {
-    console.log('unable to save todo2.');
+    console.log('unable to save user.');
 });
